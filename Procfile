@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -b 0.0.0.0:3000 blog_app:app --log-file -
+web: gunicorn -w 2 blog_app:app --log-file -
