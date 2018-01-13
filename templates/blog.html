@@ -129,28 +129,39 @@
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
       <h2>3.Try to play with set operations.</h2>
-      <p>&nbsp;Set operations are very usefull when we talk about optimise you can easily used on list sequence data structure.</p>
-      <p>&nbsp;&nbsp;<b>Input:</b> l1= [(2,3,9),(1,5,6),(12,1,5)]</p>
-      <p>&nbsp;&nbsp;<b>step1:</b>  import operator</p>
-      <p>&nbsp;&nbsp;<b>step2:</b>  l1.sort(key=operator.itemgetter(1)) #here you cange it to 0,1 etc  key index</p>
-      <p>&nbsp;&nbsp;<b>Output will be:</b> l1= [(12, 1, 5), (2, 3, 9), (1, 5, 6)]</p>
+      <p>&nbsp;Set operations are very usefull when we talk about optimisation you can easily use set on list sequence data structure to get result fast.Here below explained some examples in conserding the set operations</p>
+      <p>&nbsp;&nbsp;<b>Removing the duplicate from given list:</b> l1= [1,2,3,2,4,4,5]</p>
+      <p>&nbsp;&nbsp;<b>step1:</b>  set(l1)</p>
+      <p>&nbsp;&nbsp;<b>step2:</b>  l1=list(set(l1)) #here resulted list will having unique elements</p>
+      <p>&nbsp;&nbsp;<b>Output will be:</b> l1= [1,2,3,4,5]</p>
+      <hr/>
+      <p>&nbsp;&nbsp;<b>Union of two list:</b> l1,l2=[1,2,3,4],[2,3,7,8]</p>
+      <p>&nbsp;&nbsp;<b>step1:</b>  set(l1).union(l2)</p>
+      <p>&nbsp;&nbsp;<b>Output will be:</b> set([1, 2, 3, 4, 7, 8]) #final set as output contain combination of both list</p>
+      <hr/>
+      <p>&nbsp;&nbsp;<b>Intersection of two list:</b> l1,l2=[1,2,3,4],[2,3,7,8]</p>
+      <p>&nbsp;&nbsp;<b>step1:</b>  set(l1).intersection(l2)</p>
+      <p>&nbsp;&nbsp;<b>Output will be:</b> set([2, 3]) #final set as output contain common element of both list</p>
       
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
       <h2>4.Avoid using the global variable.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <p>&nbsp;While declaring the variable inside loop or function try to decalre local varibale instead global varible.because it creates confusion for system to lookup the the varible while accessig at some point of time.</p>
+      <!-- <p>&nbsp;&nbsp;<b>Local variable assigning is more efficent :</b> #syntex is explained below</p>
+      <p>&nbsp;&nbsp;<b>step1:</b>  def func():
+                                      upper = str.upper
+                                      newlist = []
+                                      append = newlist.append
+                                      for word in oldlist:
+                                          append(upper(word))
+                                      return newlist</p> -->
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
       <h2>5.Don't declare the objects inside the loop, it should be declared first.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <p>All objects which are going to use in the for loop always declare them first outside the loop because each declaration consumes or allocate some memory to that object but you will be using it once only so declare these objects first so it will be call in one time only.</p>
+     
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
