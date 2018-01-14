@@ -160,44 +160,63 @@
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
       <h2>5.Don't declare the objects inside the loop, it should be declared first.</h2>
-      <p>All objects which are going to use in the for loop always declare them first outside the loop because each declaration consumes or allocate some memory to that object but you will be using it once only so declare these objects first so it will be call in one time only.</p>
+      <p>&nbsp;All objects which are going to use in the for loop always declare them first outside the loop because each declaration consumes or allocate some memory to that object but you will be using it once only so declare these objects first so it will be call in one time only.</p>
      
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
-      <h2>6.Try use try and except block instead if, else statement.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <h2>6.Use join method to concat the several strings instead sum.</h2>
+      <p>&nbsp;Here when we use join method which is built in function in python that easily concat the strings and cosume less time and less memory . some example with their syntax explain as below.</p>
+       <p>&nbsp;&nbsp;<b>Example with sum</b> 
+        <div class="well">
+          str='' 
+          <br/> 
+          for i in 'welcomepython':
+          <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;str = str+i
+          <br/>
+          print "Output will be: ",str
+        </div>
+         <p>&nbsp;Output will be : welcomepython</p>
+      </p>
+      <p>&nbsp;&nbsp;<b>Example with join</b> 
+        <div class="well">
+          str='' 
+          <br/> 
+          result = ''.join([i for i in 'welcomepython'])
+          <br/>
+          print "Output will be: ",result
+        </div>
+         <p>&nbsp;Output will be : welcomepython</p>
+        </p>
+     
+     
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
       <h2>7.Use xrange instead of range.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <p>&nbsp; xrange is good to use instead range because range returns the number of values where each value consume some memory and make the execution slow.while xrange returns the generator object instead values .</p>
+      <p>&nbsp;&nbsp;<b>Example1</b> [i for i in range(0,10,2)]</p>
+      <p>&nbsp;&nbsp;<b>Example2:</b> [i for i in xrange(0,10,2)]</p>
+     
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
-      <h2>8.Use debugging tools like pyinstrument,cProfile,pstats,timeit etc.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <h2>8.Use debugging tools like pyinstrument,cProfile,pstats etc.</h2>
+      <p>&nbsp; It is very important to first debug the code before to do the optimisation so that easily you can find the time taken by each function and line which will helps in doing optimisation.Here explaining some tools to profile the code easily shown below.</p>
+      <p>&nbsp;&nbsp;<b>with pyinstrument</b> [i for i in range(0,10,2)]</p>
     </div>
     <hr/>
-    <div class=" jumbotron col-sm-12 text-left"> 
+    <!-- <div class=" jumbotron col-sm-12 text-left"> 
       <h2>9.Try to write the subfunctions.</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <hr>
       <h3>Test</h3>
       <p>Lorem ipsum...</p>
-    </div>
-    <hr/>
-    <div class=" jumbotron col-sm-12 text-left"> 
-      <h2>10.Use multiprocessing and multithreading.
+    </div> -->
+<!--     <hr/>
+ -->    <div class=" jumbotron col-sm-12 text-left"> 
+      <h2>9.Use multiprocessing and multithreading.
 </h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <hr>
@@ -206,7 +225,7 @@
     </div>
     <hr/>
     <div class=" jumbotron col-sm-12 text-left"> 
-      <h2>11.While exporting data to excel always try use csv,xlsxwriter.
+      <h2>10.While exporting data to excel always try use csv,xlsxwriter.
 </h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <hr>

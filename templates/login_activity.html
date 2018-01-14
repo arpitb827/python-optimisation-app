@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
 form {
@@ -70,36 +73,46 @@ span.psw {
 }
 </style>
 <body>
-<div class="w3-container" align="center">
-    <div width="50%" style="margin-left:500px;margin-right:500px;margin-top:100px;">
-<h2>Smart Blog! Login</h2>
-
-<form action="/action_page.php">
+<div class="row col-md-4 col-md-offset-4" >
+    <!-- <div > -->
+    <br/>
+    <br/>
+    <div class="row">
+        <center>
+        <h2>Smart Blog! Login</h2>
+    </center>
+    </div>
+    <br/>
+    <br/>
+    <center>
+    <form action="/action_page.php">
         <span class="psw" align="right">Forgot <a href="#">password?</a></span>
         <br/>
-  <div class="imgcontainer">
-    <img src="/static/img/opengraph.png" alt="Avatar" class="avatar">
-  </div>
+      <div class="imgcontainer">
+        <img src="/static/img/opengraph.png" alt="Avatar" class="avatar">
+      </div>
 
-  <div class="container">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+      
+    <label ><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" class="form-control" name="uname" required>
     <br/>
 
     <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" placeholder="Enter Password" class="form-control" name="psw" required>
         
-    <button type="submit">Login</button>
-    <input type="checkbox" checked="checked"> Remember me
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <a href="#">New to Smart Blog? Create an account.</a>
-    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+    <button type="submit" class="form-control btn-success" >Login</button>
     
-  </div>
-</form>
-</div>
+    <input type="checkbox" checked="checked" class="form-inline"> 
+    <label ><b>Remember me</b></label>
+    <hr/>
+      <div class="row" >
+        <a href="#">New to Smart Blog? Create an account.</a>
+        <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+        
+      </div>
+    </form>
+</center>
+<!-- </div> -->
 </div>
 </body>
 </html>
