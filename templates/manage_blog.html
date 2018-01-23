@@ -4,9 +4,34 @@
   <title>Smart Python</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="//cdn.ckeditor.com/4.7.2/basic/ckeditor.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  //add the jQuery click/show/hide behaviours (or native JS if you prefer):
+    $(document).ready(function(){
+        $(".show_form").click(function(){
+            if($("#hide_form1").is(":visible")){
+                $("#hide_form1").hide();
+            } else {
+                $("#hide_form1").show();
+            }
+            //don't follow the link (optional, seen as the link is just an anchor)
+            return false;
+        });
+         $(".show_users").click(function(){
+            if($("#hide_users").is(":visible")){
+                $("#hide_users").hide();
+            } else {
+                $("#hide_users").show();
+            }
+            //don't follow the link (optional, seen as the link is just an anchor)
+            return false;
+        });
+    });
+  </script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -19,8 +44,9 @@
     
     /* Set gray background color and 100% height */
     .sidenav {
+      margin-top: 30px;
       padding-top: 70px;
-      background-color: #f1f1f1;
+      background-color: #ffffff;
       height: 100%;
     }
     
@@ -39,6 +65,12 @@
         padding: 15px;
       }
       .row.content {height:auto;} 
+    }
+    #hide_form1{
+      display: none;
+    }
+    #hide_users{
+      display: none;
     }
   </style>
 </head>
@@ -70,7 +102,7 @@
   </div>
 </nav>
   
-<div class="container text-left">
+<div class="container-fluid">
 
   <!-- <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="/add_blog">Add Blog</a></li>
@@ -78,12 +110,67 @@
     <li><a data-toggle="tab" href="/blog_data">Blog history</a></li>
   </ul> -->
   <div class="col-sm-2 sidenav" >
-      <p><a href ="/add_blog">Add Blog</a></p>
-      <p><a href="/all_users">All Users</a></p>
+      <p><a href ="#manage_reply_enquiry" class="show_form" >Add Blog</a></p>
+      <p><a href="#hide_all_users" class="show_users">All Users</a></p>
       <p><a href ="/blog_data">Blog History</a></p>
-    </div>
+  </div>
+  <div class="col-sm-10 well">
+
   
-</div>  
+    <form  id="hide_form1" action="/add" method="POST" enctype="multipart/form-data">
+        <legend>Add Blog</legend>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+        </div>
+
+        <div class ="form-group">
+           <label for="inputfile">Upload Image:</label>
+            <input type="file" name="inputfile" accept="image/*" multiple> 
+       </div>
+        
+        <div class="form-group">
+
+          <label for="content">Description:</label>
+        <textarea class="form-control" rows="5" name="content" id="content" placeholder="Add some text here .." required ></textarea>
+        <script>
+                  CKEDITOR.replace( 'content' );
+              </script>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- all users data -->
+    <table id="hide_users" class="table table-bordered">
+      <caption><center><b>All Users</b></center></caption>
+        <thead>
+          <tr>
+            <th>UserId</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Create date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for each in users %}
+          <tr>
+            <td>{{each.id}}</td>
+            <td>{{each.username}}</td>
+            <td>{{each.password}}</td>
+            <td>{{each.email}}</td>
+            <td>{{each.created_date}}</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+  </div>
+</div> 
+<div class="container" >
+
+  
+  
+</div>
   
 
 <footer class="container-fluid text-center">

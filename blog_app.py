@@ -43,9 +43,9 @@ def index():
 @app.route("/manage_blog")
 @login_required
 def manage_blog():
-	# data = User.query.all() 
+	data = User.query.all() 
 	# return render_template("manage_blog.html", name=current_user.username,form=form, datas=data)
-	return render_template("manage_blog.html", name=current_user.username)
+	return render_template("manage_blog.html", name=current_user.username, users=data)
 
 @app.route("/sign_in", methods=["GET","POST"])
 def open_login():
