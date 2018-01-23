@@ -112,7 +112,7 @@
   <div class="col-sm-2 sidenav" >
       <p><a href ="#manage_reply_enquiry" class="show_form" >Add Blog</a></p>
       <p><a href="#hide_all_users" class="show_users">All Users</a></p>
-      <p><a href ="/blog_data">Blog History</a></p>
+      <p><a href ="/blog_history" class="active">Blog History</a></p>
   </div>
   <div class="col-sm-10 well">
 
@@ -124,11 +124,11 @@
           <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
         </div>
 
-        <div class ="form-group">
+        <!-- <div class ="form-group">
            <label for="inputfile">Upload Image:</label>
             <input type="file" name="inputfile" accept="image/*" multiple> 
        </div>
-        
+         -->
         <div class="form-group">
 
           <label for="content">Description:</label>
@@ -159,6 +159,43 @@
             <td>{{each.password}}</td>
             <td>{{each.email}}</td>
             <td>{{each.created_date}}</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- blog data -->
+    <table id="blog_data" class="table table-bordered">
+      <caption><center><b>Blog History</b></center></caption>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Create Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for each in blog_data %}
+          <tr>
+            <td>
+            {{each.id}}
+            </td>
+            <td>
+              {{each.title}}
+            </td>
+            <td>
+              {{each.content|safe}}
+            </td>
+            <td>
+              {{each.created_date}}
+            </td>
+            <!-- <td>{{each.id}}</td>
+            <td>{{each.username}}</td>
+            <td>{{each.password}}</td>
+            <td>{{each.email}}</td>
+            <td>{{each.created_date}}</td> -->
 
           </tr>
           {% endfor %}

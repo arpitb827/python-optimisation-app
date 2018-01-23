@@ -21,6 +21,15 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'open_login'
 
+class Blog(db.Model):
+	__searchable__=['title','content']
+	
+	id = db.Column('id', db.Integer, primary_key=True)
+	title = db.Column(db.String(100))
+	content = db.Column(db.String(1000))
+	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	# image_name = db.Column(db.String(3000))
+	# image_data = db.Column(db.LargeBinary)
 
 class User(UserMixin,db.Model):
 
@@ -46,6 +55,20 @@ def manage_blog():
 	data = User.query.all() 
 	# return render_template("manage_blog.html", name=current_user.username,form=form, datas=data)
 	return render_template("manage_blog.html", name=current_user.username, users=data)
+
+@app.route("/add",methods=['GET', 'POST'])
+def add_easy_blog():
+	if request.method=='POST':
+		post =Blog(title=request.form['title'],content=request.form['content'])
+		db.session.add(post)
+		db.session.commit()
+		return redirect(url_for('blog_history'))
+	return render_template("manage_blog.html")
+
+@app.route("/blog_history",methods=['GET', 'POST'])
+def blog_history():
+
+	return render_template("manage_blog.html", name=current_user.username,users=User.query.all(),blog_data = Blog.query.all())
 
 @app.route("/sign_in", methods=["GET","POST"])
 def open_login():
