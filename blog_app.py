@@ -26,7 +26,7 @@ class Blog(db.Model):
 	
 	id = db.Column('id', db.Integer, primary_key=True)
 	title = db.Column(db.String(100))
-	content = db.Column(db.String(1000))
+	content = db.Column(db.Text())
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	# image_name = db.Column(db.String(3000))
 	# image_data = db.Column(db.LargeBinary)
@@ -47,14 +47,14 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-   return render_template("blog.html")
+   return render_template("blog.html",blog_data = Blog.query.all())
 
 @app.route("/manage_blog")
 @login_required
 def manage_blog():
 	data = User.query.all() 
 	# return render_template("manage_blog.html", name=current_user.username,form=form, datas=data)
-	return render_template("manage_blog.html", name=current_user.username, users=data)
+	return render_template("manage_blog.html", name=current_user.username, users=data,blog_data = Blog.query.all())
 
 @app.route("/add",methods=['GET', 'POST'])
 def add_easy_blog():
@@ -143,6 +143,8 @@ def forgot_password():
 def add_blog():
 
 	render_template("add_blog.html")
+
+
 
 if __name__ == '__main__':
 	db.create_all()

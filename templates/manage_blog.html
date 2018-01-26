@@ -174,14 +174,17 @@
             <th>Title</th>
             <th>Content</th>
             <th>Create Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {% for each in blog_data %}
           <tr>
+            
             <td>
             {{each.id}}
             </td>
+
             <td>
               {{each.title}}
             </td>
@@ -191,12 +194,8 @@
             <td>
               {{each.created_date}}
             </td>
-            <!-- <td>{{each.id}}</td>
-            <td>{{each.username}}</td>
-            <td>{{each.password}}</td>
-            <td>{{each.email}}</td>
-            <td>{{each.created_date}}</td> -->
-
+           
+            
           </tr>
           {% endfor %}
         </tbody>
