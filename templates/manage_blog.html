@@ -88,10 +88,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/about_us">About</a></li>
 <!--         <li><a href="#">Projects</a></li>
- -->        <li><a href="#">Contact Us</a></li>
+ -->        <li><a href="/contact">Contact Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"> {{name.upper()}}</a></li>
@@ -170,6 +170,7 @@
       <caption><center><b>Blog History</b></center></caption>
         <thead>
           <tr>
+            <th></th>
             <th>Id</th>
             <th>Title</th>
             <th>Content</th>
@@ -180,6 +181,9 @@
         <tbody>
           {% for each in blog_data %}
           <tr>
+             <td>
+              <a href="{{ url_for('edit_blog',blog_id=each.id) }}" class="btn btn-success">Edit</a>
+            </td>
             
             <td>
             {{each.id}}
@@ -194,8 +198,7 @@
             <td>
               {{each.created_date}}
             </td>
-           
-            
+
           </tr>
           {% endfor %}
         </tbody>

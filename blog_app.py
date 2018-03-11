@@ -142,10 +142,56 @@ def forgot_password():
 @app.route("/add_blog", methods=["GET","POST"])
 def add_blog():
 
-	render_template("add_blog.html")
+	return render_template("add_blog.html")
 
+@app.route("/about_us", methods=["GET","POST"])
+def about_us():
+
+	return render_template("about.html")
+
+@app.route("/contact", methods=["GET","POST"])
+def contact_us():
+
+	return render_template("contact.html")
+
+@app.route('/edit_blog/<int:blog_id>',methods=['GET', 'POST'])
+def edit_blog(blog_id=False):
+	# search_result = Blog.query.filter_by(id=int(blog_id)).first()
+ #    exist_data = {}
+ #    if search_result:
+ #        exist_data.update({'name':search_result.name,'time':search_result.time,'location':search_result.location})
+ #        #editing the movie details
+ #        if request.method == 'POST':
+ #          if not request.form['name'] or not request.form['time'] or not request.form['location']:
+ #            flash('Please enter all the fields', 'error')
+ #          else:
+ #            Flag = False
+ #            if request.form['name']!= search_result.name:
+ #              search_result.name = request.form['name']
+ #              db.session.add(search_result)
+ #              db.session.commit()
+ #              Flag=True
+ #            elif request.form['time']!= search_result.time:
+ #              search_result.time = request.form['time']
+ #              db.session.add(search_result)
+ #              db.session.commit()
+ #              Flag=True
+ #            elif request.form['location']!=search_result.location:
+ #               search_result.location = request.form['location']
+ #               db.session.add(search_result)
+ #               db.session.commit()
+ #               Flag=True
+ #            else:
+ #              Flag=False
+
+ #            if Flag:
+ #              flash('Movie is Edited Sucessfully!')
+ #              return redirect(url_for('movie_all'))
+
+    # return render_template('edit_movie.html',data = [exist_data])
+    return "Edit Blog "+str(blog_id)
 
 
 if __name__ == '__main__':
 	db.create_all()
-   	app.run(debug=True)
+  	app.run(host='0.0.0.0',port=5003,debug=True)
