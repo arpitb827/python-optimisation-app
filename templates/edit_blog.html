@@ -102,26 +102,16 @@
   </div>
 </nav>
   
-<div class="container-fluid">
-
-  <!-- <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="/add_blog">Add Blog</a></li>
-    <li><a data-toggle="tab" href="/all_users">Users</a></li>
-    <li><a data-toggle="tab" href="/blog_data">Blog history</a></li>
-  </ul> -->
-  <div class="col-sm-2 sidenav" >
-      <p><a href ="#manage_reply_enquiry" class="show_form" >Add Blog</a></p>
-      <p><a href="#hide_all_users" class="show_users">All Users</a></p>
-      <p><a href ="/blog_history" class="active">Blog History</a></p>
-  </div>
-  <div class="col-sm-10 well">
-
-  
-    <form  id="hide_form1" action="/add" method="POST" enctype="multipart/form-data">
-        <legend>Add Blog</legend>
+<div class="container">
+  <br/>
+  {%- for message in get_flashed_messages() %}
+    {{ message }}
+    {%- endfor %}
+  <form   action="{{ request.path }}" method="POST" enctype="multipart/form-data">
+        <legend>Edit Blog</legend>
         <div class="form-group">
           <label for="title">Title:</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Title" required value="{{search_result.title}}" readonly>
         </div>
 
         <!-- <div class ="form-group">
@@ -132,90 +122,14 @@
         <div class="form-group">
 
           <label for="content">Description:</label>
-        <textarea class="form-control" rows="5" name="content" id="content" placeholder="Add some text here .." required ></textarea>
+        <textarea class="form-control" rows="5" name="content" id="content" placeholder="Add some text here .." required  >{{search_result.content|safe}}</textarea>
         <script>
                   CKEDITOR.replace( 'content' );
               </script>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <!-- all users data -->
-    <table id="hide_users" class="table table-bordered">
-      <caption><center><b>All Users</b></center></caption>
-        <thead>
-          <tr>
-            <th></th>
-            <th>UserId</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Email</th>
-           <!--  <th>Create date</th> -->
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for each in users | sort(attribute='id') %}
-          <tr>
-            <td>
-              <a href="{{ url_for('edit_users',user_id=each.id) }}" class="btn btn-success">Edit</a>
-            </td>
-            <td>{{each.id}}</td>
-            <td>{{each.username}}</td>
-            <td>{{each.password}}</td>
-            <td>{{each.email}}</td>
-           <!--  <td>{{each.created_date}}</td> -->
-            <td>
-            <a href="{{ url_for('delete_users',user_id=each.id) }}" >Remove</a>            
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-    </table>
-
-    <!-- blog data -->
-    <table id="blog_data" class="table table-bordered">
-      <caption><center><b>Blog History</b></center></caption>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Create Date</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {%- for message in get_flashed_messages() %}
-          {{ message }}
-          {%- endfor %}
-          {% for each in blog_data %}
-          <tr>
-             <td>
-              <a href="{{ url_for('edit_blog',blog_id=each[0]) }}" class="btn btn-success">Edit</a>
-            </td>
-            
-            <td>
-            {{each[0]}}
-            </td>
-
-            <td>
-              {{each[1]}}
-            </td>
-            <td>
-              {{each[2]|safe}}
-            </td>
-            <td>
-              {{each[3]}}
-            </td>
-            <td>
-            <a href="{{ url_for('delete_blog',blog_id=each[0]) }}" >Remove</a>            
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-  </table>
-  </div>
+ 
 </div> 
 <div class="container" >
 

@@ -87,9 +87,10 @@
     <br/>
     <br/>
     {% for each in blog_data %}
+    
      <div class="jumbotron col-sm-12 text-left"> 
-      <h2>{{each.id}}. {{each.title}}</h2>
-      {{each.content|safe}}
+      <h2>{{each[0]}}. {{each[1]}}</h2>
+      {{each[2]|safe}}
      </div>
     {% endfor %}
   </div>

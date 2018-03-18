@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 #adding flask login to resrict user to do first sign in 
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
+import operator
 
 app = Flask(__name__, template_folder='templates')
 
@@ -40,6 +41,7 @@ class User(UserMixin,db.Model):
 	password = db.Column(db.String(80))
 	email = db.Column(db.String(80), unique=True)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	is_admin = db.Column(db.Boolean, unique=False, default=False)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -47,14 +49,18 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-   return render_template("blog.html",blog_data = Blog.query.all())
+   new_c_data = [(each.id,each.title,each.content) for each in Blog.query.all()]
+   new_c_data.sort(key=operator.itemgetter(0),reverse=False)
+   return render_template("blog.html",blog_data = new_c_data)
 
 @app.route("/manage_blog")
 @login_required
 def manage_blog():
-	data = User.query.all() 
+	data = User.query.all()
+	new_c_data = [(each.id,each.title,each.content,each.created_date) for each in Blog.query.all()]
+   	new_c_data.sort(key=operator.itemgetter(0),reverse=False) 
 	# return render_template("manage_blog.html", name=current_user.username,form=form, datas=data)
-	return render_template("manage_blog.html", name=current_user.username, users=data,blog_data = Blog.query.all())
+	return render_template("manage_blog.html", name=current_user.username, users=data,blog_data = new_c_data)
 
 @app.route("/add",methods=['GET', 'POST'])
 def add_easy_blog():
@@ -67,8 +73,9 @@ def add_easy_blog():
 
 @app.route("/blog_history",methods=['GET', 'POST'])
 def blog_history():
-
-	return render_template("manage_blog.html", name=current_user.username,users=User.query.all(),blog_data = Blog.query.all())
+	new_c_data = [(each.id,each.title,each.content,each.created_date) for each in Blog.query.all()]
+   	new_c_data.sort(key=operator.itemgetter(0),reverse=False)
+	return render_template("manage_blog.html", name=current_user.username,users=User.query.all(),blog_data = new_c_data)
 
 @app.route("/sign_in", methods=["GET","POST"])
 def open_login():
@@ -156,41 +163,98 @@ def contact_us():
 
 @app.route('/edit_blog/<int:blog_id>',methods=['GET', 'POST'])
 def edit_blog(blog_id=False):
-	# search_result = Blog.query.filter_by(id=int(blog_id)).first()
- #    exist_data = {}
- #    if search_result:
- #        exist_data.update({'name':search_result.name,'time':search_result.time,'location':search_result.location})
- #        #editing the movie details
- #        if request.method == 'POST':
- #          if not request.form['name'] or not request.form['time'] or not request.form['location']:
- #            flash('Please enter all the fields', 'error')
- #          else:
- #            Flag = False
- #            if request.form['name']!= search_result.name:
- #              search_result.name = request.form['name']
- #              db.session.add(search_result)
- #              db.session.commit()
- #              Flag=True
- #            elif request.form['time']!= search_result.time:
- #              search_result.time = request.form['time']
- #              db.session.add(search_result)
- #              db.session.commit()
- #              Flag=True
- #            elif request.form['location']!=search_result.location:
- #               search_result.location = request.form['location']
- #               db.session.add(search_result)
- #               db.session.commit()
- #               Flag=True
- #            else:
- #              Flag=False
+	search_result = Blog.query.filter_by(id=int(blog_id)).first()
+	if search_result:
+		# exist_data.update({'title':search_result.title,'content':search_result.content})
+		if request.method == 'POST':
+			if not request.form['title'] and not request.form['content']:
+				flash('Please enter all the fields', 'error')
+			else:
+				Flag = False
+				# if request.form['title']!= search_result.title:
+				# 	search_result.title = request.form['title']
+				# 	db.session.add(search_result)
+				# 	db.session.commit()
+				# 	Flag=True
+				if request.form['content']=='':
+					flash('Please Enter some description!')	
+				elif request.form['content']!= search_result.content:
+					search_result.content = request.form['content']
+					db.session.add(search_result)
+					db.session.commit()
+					Flag=True
+				else:
+					Flag=False
 
- #            if Flag:
- #              flash('Movie is Edited Sucessfully!')
- #              return redirect(url_for('movie_all'))
+				if Flag:
+					flash('Blog Edit sucessfully!')
+					return redirect(url_for('blog_history'))
+	return render_template('edit_blog.html',name=current_user.username, search_result=search_result)
+    # return "Edit Blog "+str(blog_id)
 
-    # return render_template('edit_movie.html',data = [exist_data])
-    return "Edit Blog "+str(blog_id)
+@app.route('/delete_blog/<int:blog_id>',methods=['GET', 'POST'])
+def delete_blog(blog_id=False):
+	search_result = Blog.query.filter_by(id=int(blog_id)).first()
+	if search_result:
+	    message = ""
+	    message+=str(search_result.title)
+	    db.session.delete(search_result)
+	    db.session.commit()
+	    flash(message+" "+"Deleted Sucessfully.")
+	    return redirect(url_for('blog_history'))
+	return render_template('edit_blog.html',name=current_user.username, search_result=search_result)
 
+@app.route('/edit_users/<int:user_id>',methods=['GET', 'POST'])
+def edit_users(user_id=False):
+	search_result = User.query.filter_by(id=int(user_id)).first()
+	if request.method == 'POST':
+		if not request.form['username'] and not request.form['password']:
+			flash('Please enter all the fields', 'error')
+		else:
+			Flag = False
+			if request.form['username']=='':
+				flash('Please Enter User name!')
+			if request.form['is_admin']:
+				#admin users
+				admin_users = User.query.filter_by(is_admin=True).all()
+				print "admin_users=====",admin_users
+				if len(admin_users)>1:
+					flash('You can not make duplicate Admin!')
+					Flag=True
+				else:
+					search_result.is_admin = True
+					db.session.add(search_result)
+					db.session.commit()
+					Flag=True	
+			if request.form['username']!= search_result.username:
+				search_result.username = request.form['username']
+				db.session.add(search_result)
+				db.session.commit()
+				Flag=True	
+			elif request.form['password']!= search_result.password:
+				search_result.password = request.form['password']
+				db.session.add(search_result)
+				db.session.commit()
+				Flag=True
+			else:
+				Flag=False
+			print "flag=====",flag
+			if Flag:
+				flash('User Edit sucessfully!')
+				return redirect(url_for('blog_history'))
+	return render_template('edit_users.html',name=current_user.username, search_result=search_result)
+
+@app.route('/delete_users/<int:user_id>',methods=['GET', 'POST'])
+def delete_users(user_id=False):
+	search_result = User.query.filter_by(id=int(user_id)).first()
+	if search_result:
+	    message = ""
+	    message+=str(search_result.username)
+	    db.session.delete(search_result)
+	    db.session.commit()
+	    flash(message+" "+"Deleted Sucessfully.")
+	    return redirect(url_for('blog_history'))
+	return "Delete User"
 
 if __name__ == '__main__':
 	db.create_all()
