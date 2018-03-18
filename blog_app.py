@@ -13,7 +13,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 app = Flask(__name__, template_folder='templates')
 
 app.config["SECRET_KEY"]="Thisisascretkey"
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://localhost/smartblog'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://arpit:honey@localhost/smartblog'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 
 db = SQLAlchemy(app)
@@ -194,4 +194,4 @@ def edit_blog(blog_id=False):
 
 if __name__ == '__main__':
 	db.create_all()
-  	app.run(host='0.0.0.0',port=5003,debug=True)
+  	app.run(host='0.0.0.0',port=5002,debug=True)
