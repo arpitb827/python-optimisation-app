@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash,redirect, url_for, session
-from forms import LoginForm, RegisterForm,PasswordResetForm
+from forms import LoginForm, RegisterForm,PasswordResetForm, EditUserForm
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
@@ -60,7 +60,7 @@ def manage_blog():
 	new_c_data = [(each.id,each.title,each.content,each.created_date) for each in Blog.query.all()]
    	new_c_data.sort(key=operator.itemgetter(0),reverse=False) 
 	# return render_template("manage_blog.html", name=current_user.username,form=form, datas=data)
-	return render_template("manage_blog.html", name=current_user.username, users=data,blog_data = new_c_data)
+	return render_template("manage_blog.html", name=current_user.username,user_obj = current_user, users=data,blog_data = new_c_data)
 
 @app.route("/add",methods=['GET', 'POST'])
 def add_easy_blog():
@@ -75,7 +75,7 @@ def add_easy_blog():
 def blog_history():
 	new_c_data = [(each.id,each.title,each.content,each.created_date) for each in Blog.query.all()]
    	new_c_data.sort(key=operator.itemgetter(0),reverse=False)
-	return render_template("manage_blog.html", name=current_user.username,users=User.query.all(),blog_data = new_c_data)
+	return render_template("manage_blog.html", name=current_user.username,user_obj = current_user,users=User.query.all(),blog_data = new_c_data)
 
 @app.route("/sign_in", methods=["GET","POST"])
 def open_login():
@@ -206,43 +206,50 @@ def delete_blog(blog_id=False):
 
 @app.route('/edit_users/<int:user_id>',methods=['GET', 'POST'])
 def edit_users(user_id=False):
+	form = EditUserForm()
 	search_result = User.query.filter_by(id=int(user_id)).first()
-	if request.method == 'POST':
-		if not request.form['username'] and not request.form['password']:
+	print "search_result====",request.method,search_result.is_admin,form.validate_on_submit()
+	if form.validate_on_submit() and request.method=='POST':
+		if not request.form['username'] and not request.form['email']:
 			flash('Please enter all the fields', 'error')
 		else:
 			Flag = False
-			if request.form['username']=='':
-				flash('Please Enter User name!')
-			if request.form['is_admin']:
+			email = ''
+			username = ''
+			print "request",request.form.keys()
+			all_dict = request.form.keys()
+			print "request.form['username']==request.form['email']",type(request.form['username']),request.form['email']
+			
+			if 'is_admin' in all_dict and request.form['is_admin']==True:
 				#admin users
 				admin_users = User.query.filter_by(is_admin=True).all()
 				print "admin_users=====",admin_users
-				if len(admin_users)>1:
+				if len(admin_users):
 					flash('You can not make duplicate Admin!')
-					Flag=True
+					Flag=False
 				else:
 					search_result.is_admin = True
 					db.session.add(search_result)
 					db.session.commit()
-					Flag=True	
-			if request.form['username']!= search_result.username:
-				search_result.username = request.form['username']
-				db.session.add(search_result)
-				db.session.commit()
-				Flag=True	
-			elif request.form['password']!= search_result.password:
-				search_result.password = request.form['password']
-				db.session.add(search_result)
-				db.session.commit()
-				Flag=True
-			else:
-				Flag=False
-			print "flag=====",flag
+					Flag=True
+			if 'username' in all_dict:
+				username = str(request.form['username'])
+			if 'email' in all_dict:
+				email = str(request.form['email'])
+			print "username==email==",username,email
+			
+			# if username and email:
+			search_result.username = username
+			search_result.email = email
+			db.session.add(search_result)
+			db.session.commit()
+			Flag=True
+			
+			print "Flag=====",Flag
 			if Flag:
 				flash('User Edit sucessfully!')
 				return redirect(url_for('blog_history'))
-	return render_template('edit_users.html',name=current_user.username, search_result=search_result)
+	return render_template('edit_users.html',form= form,name=current_user.username, search_result=search_result)
 
 @app.route('/delete_users/<int:user_id>',methods=['GET', 'POST'])
 def delete_users(user_id=False):

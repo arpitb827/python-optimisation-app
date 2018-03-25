@@ -24,3 +24,10 @@ class PasswordResetForm(FlaskForm):
 	email = StringField("Email", validators= [InputRequired(message="Invalid Email"),Email("Email format is wrong"), Length(max=80)])
 
 
+class EditUserForm(FlaskForm):
+
+	username = StringField("UserName",validators=[InputRequired("Please enter user name."), Length(min=4, max=15)])
+	email = StringField("Email", validators= [InputRequired(message="Invalid Email"),Email("Email format is wrong"), Length(max=80)])
+	is_admin = BooleanField("Is Admin")
+
+

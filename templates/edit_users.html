@@ -104,10 +104,68 @@
   
 <div class="container">
   <br/>
-  {%- for message in get_flashed_messages() %}
-    {{ message }}
-    {%- endfor %}
-    <form   action="{{ request.path }}" method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="text-center">
+      <h3> Edit user Details</h3>
+    </div>
+      <br/>
+    <div class="col-sm-8 col-md-offset-2" >
+    <center>
+    {% with messages= get_flashed_messages() %}
+       
+        {% for message in messages %}
+            <h3>{{message}}</h3>
+        {% endfor %}
+        
+    {% endwith %}
+    {% for message in form.username.errors %}
+    <div>User Name :{{ message }}</div>
+    {% endfor %}
+    {% for message in form.email.errors %}
+    <div> Email: {{ message }}</div>
+    {% endfor %}
+     
+    <form action="{{ request.path }}" method=post class="form-horizontal">
+
+      <fieldset>
+         {{ form.hidden_tag() }}
+         <div class="form-group">
+
+           {{ form.username.label(class="control-label col-sm-2") }}
+            <div class="col-sm-10">
+               {{ form.username (value=search_result.username,class='form-control')}}
+            </div>
+       </div>
+        <br/>
+         <div class="form-group">
+            {{ form.email.label(class="control-label col-sm-2") }}
+            <div class="col-sm-10">
+             {{ form.email (value=search_result.email,class='form-control')}}
+           </div>
+         </div>
+         <br/>
+         {% if search_result.is_admin==False %}
+         <div class="form-group">
+           {{ form.is_admin.label(class="control-label col-sm-2") }}
+           <div class="col-sm-10">
+           {{form.is_admin}}
+          </div>
+        </div>
+          {% endif %}
+         
+         <br/>
+       
+    </fieldset>
+
+    <button type="submit" class="btn-success" >Save Details</button>
+    
+    
+    <hr/>
+     
+    </form>
+</center>
+
+  <!--   <form   action="{{ request.path }}" method="POST" enctype="multipart/form-data">
         <legend>Edit Users</legend>
         <div class="form-group">
           <label for="username">User Name:</label>
@@ -117,10 +175,7 @@
           <label for="email">Email:</label>
           <input type="text" class="form-control"  name="email" required value="{{search_result.email}}" readonly>
         </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="text" class="form-control"  name="password" required value="{{search_result.password}}" >
-        </div>
+        
 
         <div class ="form-group">
              <input type="checkbox" name="is_admin" value="{{search_result.is_admin}}"> Is Admin?<br>
@@ -129,9 +184,11 @@
         
        
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </form> -->
  
-</div> 
+ </div> 
+</div>
+</div>
 <div class="container" >
 
   

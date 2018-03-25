@@ -40,8 +40,29 @@
       .row.content {height:auto;} 
     }
   </style>
+      <script>
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('txt').innerHTML =
+        h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
+    // setTimeout(function(){ 
+    //   alert("Hello");
+      
+    //  }, 3000);
+    </script>
 </head>
-<body>
+<body onload="startTime()">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -74,6 +95,8 @@
   <div class="row content">
     <div class="text-left">
       <h1><b>Smart Coding with python and optimisation</b></h1>
+      <h2><div id="txt"></div>
+      </h2>
       <p>
         There are various trips and tricks to develop the code for your application efficently with smart work.
       </p>

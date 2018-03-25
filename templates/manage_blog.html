@@ -110,7 +110,9 @@
     <li><a data-toggle="tab" href="/blog_data">Blog history</a></li>
   </ul> -->
   <div class="col-sm-2 sidenav" >
+    {% if user_obj.is_admin==True %}
       <p><a href ="#manage_reply_enquiry" class="show_form" >Add Blog</a></p>
+    {% endif %}
       <p><a href="#hide_all_users" class="show_users">All Users</a></p>
       <p><a href ="/blog_history" class="active">Blog History</a></p>
   </div>
@@ -144,29 +146,37 @@
       <caption><center><b>All Users</b></center></caption>
         <thead>
           <tr>
+             {% if user_obj.is_admin==True %}
             <th></th>
+             {% endif %}
             <th>UserId</th>
             <th>Username</th>
             <th>Password</th>
             <th>Email</th>
            <!--  <th>Create date</th> -->
+            {% if user_obj.is_admin==True %}
             <th></th>
+             {% endif %}
           </tr>
         </thead>
         <tbody>
           {% for each in users | sort(attribute='id') %}
           <tr>
+             {% if user_obj.is_admin==True %}
             <td>
               <a href="{{ url_for('edit_users',user_id=each.id) }}" class="btn btn-success">Edit</a>
             </td>
+            {% endif %}
             <td>{{each.id}}</td>
             <td>{{each.username}}</td>
             <td>{{each.password}}</td>
             <td>{{each.email}}</td>
            <!--  <td>{{each.created_date}}</td> -->
+            {% if user_obj.is_admin==True %}
             <td>
             <a href="{{ url_for('delete_users',user_id=each.id) }}" >Remove</a>            
             </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
@@ -177,12 +187,16 @@
       <caption><center><b>Blog History</b></center></caption>
         <thead>
           <tr>
+             {% if user_obj.is_admin==True %}
             <th></th>
+             {% endif %}
             <th>Id</th>
             <th>Title</th>
             <th>Content</th>
             <th>Create Date</th>
+             {% if user_obj.is_admin==True %}
             <th></th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -191,9 +205,11 @@
           {%- endfor %}
           {% for each in blog_data %}
           <tr>
+             {% if user_obj.is_admin==True %}
              <td>
               <a href="{{ url_for('edit_blog',blog_id=each[0]) }}" class="btn btn-success">Edit</a>
             </td>
+             {% endif %}
             
             <td>
             {{each[0]}}
@@ -208,9 +224,11 @@
             <td>
               {{each[3]}}
             </td>
+             {% if user_obj.is_admin==True %}
             <td>
             <a href="{{ url_for('delete_blog',blog_id=each[0]) }}" >Remove</a>            
             </td>
+             {% endif %}
           </tr>
           {% endfor %}
         </tbody>
